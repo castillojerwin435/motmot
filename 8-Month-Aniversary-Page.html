@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>8 Monthsary 💖</title>
+  <style>
+    :root{
+      --bg:#FFF7FB;
+      --card:#ffffff;
+      --accent:#ff6fa3;
+      --accent-2:#ffd1e8;
+      --muted:#6b6b6b;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --glass: rgba(255,255,255,0.6);
+      font-family: 'Segoe UI', Roboto, system-ui, Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,var(--bg),#ffeef6);display:flex;align-items:center;justify-content:center;padding:28px}
+
+    .wrap{width:100%;max-width:980px}
+    .card{background:linear-gradient(180deg,var(--card),#fff);border-radius:18px;padding:28px;box-shadow:var(--shadow);overflow:hidden}
+
+    header{display:flex;gap:18px;align-items:center}
+    .logo{width:86px;height:86px;border-radius:14px;background:conic-gradient(from 180deg at 50% 50%,var(--accent),#ffb3d1,var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px;box-shadow:0 6px 20px rgba(255,111,163,0.18)}
+    h1{margin:0;font-size:22px;color:#333}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+
+    /* collage */
+    .collage{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,170px);gap:10px;border-radius:12px;overflow:hidden}
+    .collage img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease;cursor:pointer}
+    .collage img:hover{transform:scale(1.05)}
+    .collage .big{grid-column:1 / 3;grid-row:1 / 3;height:360px}
+
+    /* side area */
+    .side{display:flex;flex-direction:column;gap:12px}
+    .message{background:linear-gradient(180deg,var(--accent-2),rgba(255,255,255,0.6));padding:14px;border-radius:12px;min-height:200px;overflow:auto}
+    .message p{margin:0 0 12px;line-height:1.6;color:#3b3b3b}
+
+    .hearts{display:flex;gap:8px;align-items:center}
+    .btns{display:flex;gap:8px}
+    .btn{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(255,111,163,0.18)}
+    .btn.ghost{background:transparent;border:2px solid rgba(255,111,163,0.18);color:var(--accent)}
+
+    footer{margin-top:18px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+
+    /* modal preview */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:40}
+    .modal.open{display:flex}
+    .modal .box{max-width:920px;width:92%;background:#fff;border-radius:12px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,0.45)}
+    .modal img{width:100%;height:auto;border-radius:8px}
+
+    /* responsive */
+    @media(max-width:880px){
+      .grid{grid-template-columns:1fr;}
+      .collage .big{grid-column:auto;grid-row:auto;height:210px}
+    }
+
+    /* cute floating hearts */
+    .float-heart{position:absolute;pointer-events:none;opacity:0.85;animation:float 6s linear infinite}
+    @keyframes float{0%{transform:translateY(20vh) scale(.6) rotate(-10deg)}50%{transform:translateY(-10vh) scale(1) rotate(10deg)}100%{transform:translateY(20vh) scale(.6) rotate(-10deg)}}
+
+    /* long message area styling */
+    .long-text{white-space:pre-wrap;font-size:15px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="logo">8♥</div>
+        <div>
+          <h1>Happy 8 Monthsary — 🎉</h1>
+          <p class="lead">A little page I made for our 8-month adventure. Click any photo to enlarge.</p>
+        </div>
+      </header>
+
+      <div class="grid">
+        <div>
+          <div class="collage" id="collage">
+            <!-- Replace these src values with your own images (photo1.jpg .. photo5.jpg) -->
+            <img src="images/photo1.jpg" alt="pic1" id="p1" class="big">
+            <img src="images/photo2.jpg" alt="pic2" id="p2">
+            <img src="images/photo3.jpg" alt="pic3" id="p3">
+            <img src="images/photo4.jpg" alt="pic4" id="p4">
+          </div>
+          <div style="display:flex;gap:10px;margin-top:10px;justify-content:center;">
+            <img src="images/photo5.jpg" alt="pic5" id="p5" style="width:80px;height:80px;object-fit:cover;border-radius:10px;cursor:pointer;box-shadow:var(--shadow)">
+            <div style="flex:1;text-align:left;font-size:13px;color:var(--muted);align-self:center">Tip: To use your photos, put them in an "images" folder next to this file and name them <strong>photo1.jpg</strong> ... <strong>photo5.jpg</strong>.</div>
+          </div>
+        </div>
+
+        <aside class="side">
+          <div class="message">
+            <div class="long-text" id="longMessage">
+
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;gap:8px">
+            <div class="hearts" id="heartsArea"></div>
+            <div class="btns">
+              <button class="btn" id="surpriseBtn">Play Surprise ✨</button>
+              <button class="btn ghost" id="editBtn">Edit Message</button>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+
+      <footer>
+        <div>Made with lots of love 💕</div>
+        <div style="font-size:13px;color:var(--muted)">8 months • Keep collecting moments</div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- modal for preview -->
+  <div class="modal" id="modal">
+    <div class="box">
+      <img id="modalImg" src="" alt="preview">
+    </div>
+  </div>
+
+  <script>
+    // -- Long loving message (mix Tagalog + English) --
+    const message = `My dearest Misis Ko,
+
+hiiii misis ko i just to say na happy happy 8 months and still ounting satin sana forever natong satin po huhuh kasi kawawa nmn ako  misis ko .
+ahmm misis ko iloveyousomuchiiii. sana wag moko iwanan po. promise tiwala kalng satin nd kita iiwanan po safe na safe kana sakin po mmisis ko 
+ahmm trust me misis ko nd nd kita iiwan po promise ko po yarn sayo magigng best partner moko sa near future po misisko pagmmaksama sa un okay huhuh ipromise msiis ko 
+ahmm wala nakong masabi misis ko ahmmm batiin kita ng 8 months satin misis ko iloveyousomuchiii and i missyousomuchii misis ko asawa ko na mahal na mahal mwapsss 🥰💖
+
+— Yours, mister .`;
+
+    document.getElementById('longMessage').innerText = message;
+
+    // -- Image modal logic --
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const pics = ['p1','p2','p3','p4','p5'];
+    pics.forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el) return;
+      el.addEventListener('click',()=>{
+        modalImg.src = el.src;
+        modal.classList.add('open');
+      });
+    });
+    modal.addEventListener('click',()=>modal.classList.remove('open'));
+
+    // -- little floating hearts generator --
+    const heartsArea = document.getElementById('heartsArea');
+    function makeHeart(){
+      const heart = document.createElement('div');
+      heart.innerHTML = '❤';
+      heart.className = 'float-heart';
+      const size = Math.random()*18 + 16;
+      heart.style.fontSize = size+'px';
+      heart.style.left = Math.random()*60 + '%';
+      heart.style.bottom = '-10vh';
+      heart.style.opacity = (Math.random()*0.5 + 0.6).toFixed(2);
+      heart.style.transform = `translateY(0) rotate(${Math.random()*40-20}deg)`;
+      heartsArea.appendChild(heart);
+      setTimeout(()=>heart.remove(),6500);
+    }
+    // spawn a few hearts initially
+    setInterval(makeHeart, 900);
+
+    // -- Surprise button: plays a cute tune + small confetti effect --
+    document.getElementById('surpriseBtn').addEventListener('click', ()=>{
+      // make a tiny visual confetti by creating small circles
+      for(let i=0;i<30;i++){
+        const c = document.createElement('div');
+        c.style.position='fixed';
+        c.style.left = (50 + (Math.random()-0.5)*40) + '%';
+        c.style.top = (40 + (Math.random()-0.5)*40) + '%';
+        c.style.width = c.style.height = (6+Math.random()*10)+'px';
+        c.style.borderRadius='50%';
+        c.style.background = ['#ff6fa3','#ffd1e8','#ffb3d1','#ffe1f2'][Math.floor(Math.random()*4)];
+        c.style.zIndex=9999;
+        c.style.opacity=.95;
+        c.style.transform = `translateY(0) scale(${Math.random()+0.3})`;
+        document.body.appendChild(c);
+        (function(el){
+          setTimeout(()=>{el.style.transition='all 900ms ease';el.style.transform='translateY(-200px) rotate('+Math.random()*360+'deg)';el.style.opacity=0;},20);
+          setTimeout(()=>el.remove(),1000);
+        })(c);
+      }
+
+      // play a short beep melody using WebAudio
+      try{
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = [523.25,659.25,783.99,1046.50]; // C5, E5, G5, C6
+        let t = ctx.currentTime;
+        notes.forEach((f,i)=>{
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.frequency.value = f;
+          o.type = 'sine';
+          g.gain.value = 0.05;
+          o.connect(g); g.connect(ctx.destination);
+          o.start(t + i*0.12); o.stop(t + i*0.12 + 0.12);
+        });
+      }catch(e){console.warn('Audio not supported',e)}
+    });
+
+    // -- Edit message quick prompt --
+    document.getElementById('editBtn').addEventListener('click', ()=>{
+      const newMsg = prompt('Edit the 8-monthsary message (long messages work best):', message);
+      if(newMsg!==null){ document.getElementById('longMessage').innerText = newMsg; }
+    });
+
+    // Accessibility: show alt if image missing
+    document.querySelectorAll('img').forEach(img=>{
+      img.addEventListener('error', ()=>{
+        img.style.background = 'linear-gradient(90deg,#ffd1e8,#fff)';
+        img.style.display='flex';
+        img.style.alignItems='center';
+        img.style.justifyContent='center';
+        img.alt = 'Replace this with your photo (images/photoX.jpg)';
+      });
+    });
+  </script>
+</body>
+</html>
